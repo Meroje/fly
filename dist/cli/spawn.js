@@ -18,12 +18,16 @@ var _path = require("path");
 
 var _path2 = _interopRequireDefault(_path);
 
+var _resolve = require("resolve");
+
+var _resolve2 = _interopRequireDefault(_resolve);
+
 /**
   @desc Resolve flyfile using flypath and create a new Fly instance.
   @param {String} flypath Path to a flyfile
   */
 exports["default"] = _regeneratorRuntime.mark(function callee$0$0(flypath) {
-  var root, load, pkg;
+  var root, load, pkg, paths;
   return _regeneratorRuntime.wrap(function callee$0$0$(context$1$0) {
     while (1) switch (context$1$0.prev = context$1$0.next) {
       case 0:
@@ -43,15 +47,16 @@ exports["default"] = _regeneratorRuntime.mark(function callee$0$0(flypath) {
           } catch (_) {}
         })("package");
 
+        paths = process.env.NODE_PATH ? process.env.NODE_PATH.split(process.platform === "win32" ? ";" : ":") : [];
         return context$1$0.abrupt("return", new _fly2["default"]({
           root: root,
           host: require(flypath),
           plugins: (0, _util.plugins)({ pkg: pkg }).reduce(function (prev, next) {
-            return prev.concat(load("node_modules", next));
+            return prev.concat(require(_resolve2["default"].sync(next, { basedir: root, paths: paths })));
           }, [])
         }));
 
-      case 4:
+      case 5:
       case "end":
         return context$1$0.stop();
     }

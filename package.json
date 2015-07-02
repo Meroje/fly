@@ -16,6 +16,7 @@
     "mkdirp": "^0.5.1",
     "mz": "^2.0.0",
     "parsec": "^0.0.8",
+    "resolve": "^1.1.6",
     "rimraf": "^2.4.0",
     "update-notifier": "^0.5.0",
     "yieldables": "^0.2.0"
